@@ -8,16 +8,24 @@
 ## 実行方法
 
 ```bash
-cd java_playwright
-mvn test
+git clone https://github.com/Takayuki-Isrg/prototype_90days.git
+cd prototype_90days/java_playwright
+```
+
+```powershell
+# テスト実行
+.\mvnw.cmd clean test
+
+# Playwrightブラウザのインストール
+.\mvnw.cmd exec:java "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=install"
+
+# Codegen
+.\mvnw.cmd exec:java "-Dexec.mainClass=com.microsoft.playwright.CLI" "-Dexec.args=codegen https://www.saucedemo.com/"
+```
 
 ```md
-# strategy（90日プロトタイプ：QA×開発）
-
-## 目的
-- 観点整理→実装の行き来が楽しいか
-- コードを書く時間が苦痛かどうか
-- 「開発寄り品質（Quality Engineering）」として市場で説明できる芯を作る
+## 設計意図
+詳細は docs/strategy.md を参照。
 
 ## 対象
 - Sauce Demo（https://www.saucedemo.com/）
@@ -44,8 +52,4 @@ prototype_90days
 │     ├ pages/         # Page Object
 │     └ tests/         # テストケース
 └ legacy_selenium/     # 旧Selenium実装（Pythonコード、比較用）
-
-### 2026-02-28
-- `mvn test`でローカル実行を確認 
-- Playwright の Timeout の仕組み理解
-- 実行コマンドとテスト起動手順を整理（& の意味理解）
+```
