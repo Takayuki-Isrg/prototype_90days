@@ -1,20 +1,15 @@
 ## java_playwright
-目的：開発寄り品質エンジニアとして「設計→実装→CI」を証明するためのE2E自動化（Java + Playwright）
 
-対象：Sauce Demo（https://www.saucedemo.com/）
+目的：開発寄り品質エンジニアとして、設計→実装→CI につながる E2E 自動化の最小プロトタイプを作る。  
+技術要素：Java / Playwright / Maven / JUnit
 
-実行方法：
+対象：Sauce Demo
+
+## 実行方法
+
 ```bash
 cd java_playwright
 mvn test
-
-
-※ここではCIはまだ書かなくていい。次の週でやる。
-
----
-
-## 3) docs/strategy.md を追加（10分）
-`docs/strategy.md` を新規作成して、まずはこのテンプレを貼るだけ。
 
 ```md
 # strategy（90日プロトタイプ：QA×開発）
@@ -41,7 +36,16 @@ mvn test
 - CIで回る（後続で実装）
 - 結果が追跡可能（レポート/証跡）
 
+## ディレクトリ構成
+prototype_90days
+├ docs/                # 設計メモ・戦略
+├ java_playwright/     # PlaywrightによるE2Eテスト
+│  └ src/test/java/com/takayuki/qe
+│     ├ pages/         # Page Object
+│     └ tests/         # テストケース
+└ legacy_selenium/     # 旧Selenium実装（Pythonコード、比較用）
+
 ### 2026-02-28
-- mvn test 成功
-- Timeoutの仕組み理解
-- & の意味理解
+- `mvn test`でローカル実行を確認 
+- Playwright の Timeout の仕組み理解
+- 実行コマンドとテスト起動手順を整理（& の意味理解）

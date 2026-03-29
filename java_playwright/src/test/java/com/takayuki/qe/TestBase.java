@@ -7,18 +7,34 @@ import org.junit.jupiter.api.BeforeEach;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * テスト基底クラス
+ * 
+ */
 public abstract class TestBase {
   protected Playwright playwright;
   protected Browser browser;
   protected BrowserContext context;
   protected Page page;
 
+  protected final Path artifactRoot = Path.of("build", "artifacts");
+  protected final Path screenshotsDir = artifactRoot.resolve("screenshots"); // テスト失敗時スクショの保存先
+  protected final Path videoDir = artifactRoot.resolve("videos"); // テスト失敗時動画の保存先
+
   @BeforeEach
   void setUp() throws Exception {
+    Files.createDirectories(screenshotsDir);
+    Files.createDirectories(videoDir);
+
     playwright = Playwright.create();
-    browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
-        .setHeadless(false)); // falseにするとブラウザを起動してテストを実行する
-    context = browser.newContext();
+    browser = playwright.chromium().launch(
+        new BrowserType.LaunchOptions()
+            .setHeadless(false)); // trueにするとブラウザを起動せずにテストを実行する
+
+    context = browser.newContext(
+        new Browser.NewContextOptions()
+            .setRecordVideoDir(videoDir));
+
     page = context.newPage();
 
     // 失敗時に備えて保存先だけ作る
@@ -27,22 +43,14 @@ public abstract class TestBase {
 
   @AfterEach
   void tearDown() {
-    try {
-      // build/artifacts/配下にlast.pngを保存する
-      if (page != null) {
-        page.screenshot(new Page.ScreenshotOptions()
-            .setPath(Path.of("build/artifacts/last.png"))
-            .setFullPage(true));
-      }
-    } catch (Exception ignored) {
-      // スクショ失敗は無視（本題ではない）
-    } finally {
-      if (context != null)
-        context.close();
-      if (browser != null)
-        browser.close();
-      if (playwright != null)
-        playwright.close();
+    if (context != null) {
+      context.close();
+    }
+    if (browser != null) {
+      browser.close();
+    }
+    if (playwright != null) {
+      playwright.close();
     }
   }
 }

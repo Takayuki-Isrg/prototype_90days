@@ -9,6 +9,7 @@ public class LoginPage {
     private final String username = "#user-name";
     private final String password = "#password";
     private final String loginButton = "#login-button";
+    private final String errorMessage = "[data-test='error']";
 
     public LoginPage(Page page) {
         this.page = page;
@@ -20,9 +21,14 @@ public class LoginPage {
 
     public void login(String user, String pass) {
         page.locator(username).fill(user);
-        // page.setDefaultTimeout(3000); // 3秒でタイムアウト
-        // page.locator(password).fill(pass);
-        page.locator("#password-xxx").fill(pass); // 異常テスト用
+        page.setDefaultTimeout(3000); // 3秒でタイムアウト
+        page.locator(password).fill(pass);
+        // page.locator("#password-xxx").fill(pass); // 異常テスト用
         page.locator(loginButton).click();
     }
+
+    public String getErrorMessage() {
+        return page.locator(errorMessage).textContent();
+    }
+
 }

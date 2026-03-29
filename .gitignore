@@ -1,1 +1,18 @@
 docs/understanding.md
+# build成果物
+java_playwright/build/
+
+# Maven
+java_playwright/target/
+
+# Playwright artifacts（念のため明示）
+java_playwright/build/artifacts/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log
