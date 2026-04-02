@@ -1,11 +1,16 @@
 package com.takayuki.qe;
 
-import com.microsoft.playwright.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 
 /**
  * テスト基底クラス
@@ -36,8 +41,8 @@ public abstract class TestBase {
             .setRecordVideoDir(videoDir));
 
     page = context.newPage();
-
     page.setDefaultTimeout(3000);
+    page.setDefaultNavigationTimeout(10000);
   }
 
   @AfterEach
