@@ -23,7 +23,7 @@ public class LoginTest extends TestBase{
       loginPage.login("standard_user", "secret_sauce");
       
       InventoryPage inventoryPage = new InventoryPage(page);
-      Assertions.assertEquals("Products", inventoryPage.getTitleText());
+      Assertions.assertEquals("ProductsXXX", inventoryPage.getTitleText());
     }
     
     @Test

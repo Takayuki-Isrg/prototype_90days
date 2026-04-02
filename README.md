@@ -44,6 +44,21 @@ cd prototype_90days/java_playwright
 - CIで回る（後続で実装）
 - 結果が追跡可能（レポート/証跡）
 
+## CI(Continuous Integration)
+
+- Github Actionsを利用し、pushをトリガーにPlaywrightによるE2Eテストを自動実行している
+- 
+- 
+
+
+## ローカルでの実行方法
+
+
+## 何を検証しているか
+
+
+
+
 ## ディレクトリ構成
 prototype_90days
 ├ docs/                # 設計メモ・戦略
