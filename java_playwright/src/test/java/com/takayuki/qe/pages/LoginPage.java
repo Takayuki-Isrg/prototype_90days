@@ -1,5 +1,6 @@
 package com.takayuki.qe.pages;
 
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 public class LoginPage {
@@ -9,10 +10,12 @@ public class LoginPage {
     private final String username = "#user-name";
     private final String password = "#password";
     private final String loginButton = "#login-button";
-    private final String errorMessage = "[data-test='error']";
+
+    private final Locator errorMessage;
 
     public LoginPage(Page page) {
         this.page = page;
+        this.errorMessage = page.locator("[data-test='error']");
     }
 
     public void open() {
@@ -21,14 +24,19 @@ public class LoginPage {
 
     public void login(String user, String pass) {
         page.locator(username).fill(user);
-        page.setDefaultTimeout(3000); // 3秒でタイムアウト
         page.locator(password).fill(pass);
-        // page.locator("#password-xxx").fill(pass); // 異常テスト用
         page.locator(loginButton).click();
     }
 
-    public String getErrorMessage() {
-        return page.locator(errorMessage).textContent();
+    public boolean isErrorDisplayed(){
+        return errorMessage.isVisible();
     }
-
+    
+    public String getErrorMessage() {
+        return errorMessage.textContent();
+    }
+    
+    public boolean hasErrorMessage(String expected){
+        return errorMessage.textContent().contains(expected);
+    }
 }

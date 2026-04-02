@@ -29,7 +29,7 @@ public abstract class TestBase {
     playwright = Playwright.create();
     browser = playwright.chromium().launch(
         new BrowserType.LaunchOptions()
-            .setHeadless(false)); // trueにするとブラウザを起動せずにテストを実行する
+            .setHeadless(true));
 
     context = browser.newContext(
         new Browser.NewContextOptions()
@@ -37,8 +37,7 @@ public abstract class TestBase {
 
     page = context.newPage();
 
-    // 失敗時に備えて保存先だけ作る
-    Files.createDirectories(Path.of("build/artifacts"));
+    page.setDefaultTimeout(3000);
   }
 
   @AfterEach
